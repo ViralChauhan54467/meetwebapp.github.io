@@ -113,6 +113,19 @@ class _MyHomePageState extends State<MyHomePage> {
               '$_counter',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
+            SizedBox(
+              height: 24,
+            ),
+            ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  _counter = 0;
+                });
+              },
+              child: const Text(
+                'Reset',
+              ),
+            ),
           ],
         ),
       ),
