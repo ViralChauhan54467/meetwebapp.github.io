@@ -1,4 +1,4 @@
-name: Deploy Flutter Web to GitHub Pages
+name: Deploy Flutter Meet Web Module to GitHub Pages
 
 on:
   push:
