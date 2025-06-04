@@ -6,7 +6,6 @@ import 'package:meetwebapp/common/widgets/custom_text.dart';
 import 'package:meetwebapp/constants/app_colors.dart';
 import 'package:meetwebapp/constants/app_constants.dart';
 import 'dart:html' as html;
-import 'dart:js' as js;
 
 class AddUserDemoScreen extends StatefulWidget {
   const AddUserDemoScreen({super.key});
@@ -17,28 +16,50 @@ class AddUserDemoScreen extends StatefulWidget {
 
 class _AddUserDemoScreenState extends State<AddUserDemoScreen> {
 
+  // void pickImageFromCamera() {
+  //   final input = html.FileUploadInputElement();
+  //
+  //   input.accept = 'image/*';
+  //
+  //   // Manually set the "capture" attribute via JS interop
+  //   js.context.callMethod('eval', [
+  //     'document.querySelector("input[type=file]").setAttribute("capture", "environment");'
+  //   ]);
+  //
+  //   input.click();
+  //
+  //   input.onChange.listen((e) {
+  //     final file = input.files?.first;
+  //     if (file != null) {
+  //       // You now have access to the file from camera
+  //       print('Image picked: ${file.name}');
+  //     }
+  //   });
+  //
+  //   // Add it to the DOM temporarily (optional)
+  //   html.document.body?.append(input);
+  // }
+
   void pickImageFromCamera() {
-    final input = html.FileUploadInputElement();
+    final uploadInput = html.FileUploadInputElement();
 
-    input.accept = 'image/*';
+    uploadInput.accept = 'image/*';
+    uploadInput.attributes['capture'] = 'environment'; // 👈 This sets the camera mode
 
-    // Manually set the "capture" attribute via JS interop
-    js.context.callMethod('eval', [
-      'document.querySelector("input[type=file]").setAttribute("capture", "environment");'
-    ]);
+    uploadInput.click();
 
-    input.click();
-
-    input.onChange.listen((e) {
-      final file = input.files?.first;
+    uploadInput.onChange.listen((event) {
+      final file = uploadInput.files?.first;
       if (file != null) {
-        // You now have access to the file from camera
-        print('Image picked: ${file.name}');
+        // Handle file here (e.g., read it using FileReader)
+        final reader = html.FileReader();
+        reader.readAsDataUrl(file);
+        reader.onLoadEnd.listen((event) {
+          print("Image loaded: ${reader.result}");
+          // Use reader.result for displaying or uploading
+        });
       }
     });
-
-    // Add it to the DOM temporarily (optional)
-    html.document.body?.append(input);
   }
 
   @override
