@@ -153,14 +153,14 @@ class _MeetListScreenState extends State<MeetListScreen> {
       backgroundColor: AppColor.screenBGColor,
       floatingActionButton: FloatingActionButton(
         backgroundColor: AppColor.primaryColor,
-        shape: BeveledRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(AppFontSize.m6))),
+        shape: BeveledRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(8.r))),
         onPressed: () async {
           Get.to(() => const AddMeetScreen());
         },
         child: Icon(
           Icons.add,
           color: AppColor.white,
-          size: AppFontSize.m50,
+          size: 42.r,
         ),
       ),
       body: Padding(
@@ -168,7 +168,7 @@ class _MeetListScreenState extends State<MeetListScreen> {
         child: Column(
           children: [
 
-            32.verticalSpace,
+            16.verticalSpace,
 
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -199,14 +199,13 @@ class _MeetListScreenState extends State<MeetListScreen> {
                         children: [
                           CustomText(
                             text: fromDate,
-                            size: 10,
+                            size: AppFontSize.m14,
                             fontWeight: FontWeight.w300,
                             color: AppColor.primaryColor,
                           ),
-                          30.horizontalSpace,
-                          const Icon(
+                          Icon(
                             Icons.calendar_month,
-                            size: 18,
+                            size: AppFontSize.m16,
                             color: AppColor.primaryColor,
                           ),
                         ],
@@ -242,14 +241,13 @@ class _MeetListScreenState extends State<MeetListScreen> {
                         children: [
                           CustomText(
                             text: toDate,
-                            size: 10,
+                            size: AppFontSize.m14,
                             fontWeight: FontWeight.w300,
                             color: AppColor.primaryColor,
                           ),
-                          30.horizontalSpace,
-                          const Icon(
+                          Icon(
                             Icons.calendar_month,
-                            size: 18,
+                            size: AppFontSize.m16,
                             color: AppColor.primaryColor,
                           )
                         ],
@@ -268,9 +266,10 @@ class _MeetListScreenState extends State<MeetListScreen> {
                       color: AppColor.primaryColor,
                     ),
                     padding: const EdgeInsets.all(4),
-                    child: const Icon(
+                    child: Icon(
                       Icons.search,
                       color: AppColor.white,
+                      size: AppFontSize.m18,
                     ),
                   ),
                 ),

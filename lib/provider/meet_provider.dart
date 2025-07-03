@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:meetwebapp/common/widgets/drop_down/model/selected_list_item.dart';
 import 'package:meetwebapp/constants/api_constants.dart';
 import 'package:meetwebapp/model/meet_data_model.dart';
 import 'package:meetwebapp/network/api.dart';
@@ -11,7 +12,10 @@ class MeetProvider with ChangeNotifier {
 
   List<MeetDataModel>? meetDataList;
 
-  Future getMeetDataList() async {
+  List<SelectedListItem> typeModel = [];
+
+  Future<void> getMeetDataList() async {
+
     isLoading.value = true;
     notifyListeners();
 

@@ -13,15 +13,15 @@ class SelectedListItem {
   });
 
   factory SelectedListItem.fromJson(Map<dynamic, dynamic> json) => SelectedListItem(
-    id: json["id"] ?? "0",
-    name: json["name"] ?? "",
+    id: json["Id"] ?? "0",
+    name: json["Name"] ?? "",
     isSelected: json["isSelected"] ?? false,
     showCheckBox: json["showCheckBox"] ?? false,
   );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "name": name,
+    "Id": id,
+    "Name": name,
     "isSelected": isSelected,
     "showCheckBox": showCheckBox,
   };

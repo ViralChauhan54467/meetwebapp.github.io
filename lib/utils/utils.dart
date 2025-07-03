@@ -1,4 +1,13 @@
+import 'dart:developer';
 import 'package:connectivity_plus/connectivity_plus.dart';
+
+import 'package:flutter/foundation.dart';
+
+void printLog(String message) {
+  if (kDebugMode) {
+    log(message);
+  }
+}
 
 class Utils {
 

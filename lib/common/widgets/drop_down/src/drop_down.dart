@@ -110,12 +110,8 @@ class _MainBodyState extends State<MainBody> {
             children: <Widget>[
               Padding(
                 padding: EdgeInsets.only(left: w15, right: w15, top: h10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    /// Bottom sheet title text
-                    widget.dropDown.bottomSheetTitle ?? Container(),
-                  ],
+                child: Center(
+                  child: widget.dropDown.bottomSheetTitle ?? Container(),
                 ),
               ),
 

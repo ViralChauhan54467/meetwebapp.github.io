@@ -9,5 +9,7 @@ class ApiConstants {
 
   String get baseURL => _baseURL;
 
+  static const String getUserAuthData = 'api/common/Meet/GetAuthData';
+
   static const String getMeetData = 'api/common/Meet/GetMeetData';
 }

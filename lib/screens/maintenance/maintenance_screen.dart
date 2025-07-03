@@ -2,13 +2,13 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 import 'package:meetwebapp/common/size/app_font_size.dart';
 import 'package:meetwebapp/common/size/height_width.dart';
 import 'package:meetwebapp/common/widgets/custom_app_button/app_button.dart';
 import 'package:meetwebapp/common/widgets/custom_text.dart';
 import 'package:meetwebapp/constants/app_colors.dart';
 import 'package:meetwebapp/constants/app_constants.dart';
+import 'package:meetwebapp/provider/auth_provider.dart';
 import 'package:meetwebapp/screens/meet/meet_list_screen.dart';
 
 class MaintenanceScreen extends StatelessWidget {
@@ -18,67 +18,62 @@ class MaintenanceScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        alignment: Alignment.bottomCenter,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Container(
-            color: AppColor.white,
-            height: 1.sh,
-            width: 1.sw,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(left: w38p5),
-                  child: Center(
+          Expanded(
+            child: Container(
+              width: 1.sw,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Center(
                     child: Icon(
                       CupertinoIcons.gear,
                       color: AppColor.primaryColor,
                       size: 32.r,
                     ),
                   ),
-                ),
-                CustomText(
-                  text: AppConstants.sMaintenanceMessage,
-                  size: AppFontSize.m16,
-                  align: TextAlign.center,
-                  fontWeight: FontWeight.w500,
-                  color: AppColor.primaryColor,
-                ),
-              ],
+                  CustomText(
+                    text: AppConstants.sMaintenanceMessage,
+                    size: AppFontSize.m16,
+                    align: TextAlign.center,
+                    fontWeight: FontWeight.w500,
+                    color: AppColor.primaryColor,
+                  ),
+                ],
+              ),
             ),
           ),
           Container(
             alignment: Alignment.bottomCenter,
             width: 1.sw,
             padding: EdgeInsets.only(
-              bottom: h10,
+              bottom: h16,
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 CustomAppButton(
                   onPressed: () {
-                    Get.offAll(() => const MeetListScreen());
+                    AuthProvider().moveToNextScreen();
                   },
                   child: Container(
                     padding:
-                        EdgeInsets.symmetric(horizontal: w20, vertical: h8),
+                        EdgeInsets.symmetric(horizontal: w40, vertical: h12),
                     decoration: BoxDecoration(
                         color: AppColor.primaryColor,
                         borderRadius:
                             BorderRadius.all(Radius.circular(AppFontSize.m15))),
-                    height: h40,
-                    width: w173,
                     child: Center(
                       child: Text(
                         AppConstants.sRefresh,
                         style: TextStyle(
-                            color: AppColor.white,
-                            fontSize: AppFontSize.m16,
-                            fontFamily: 'poppins',
-                            fontWeight: FontWeight.w700),
+                          color: AppColor.white,
+                          fontSize: AppFontSize.m14,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
                     ),
                   ),
@@ -89,21 +84,19 @@ class MaintenanceScreen extends StatelessWidget {
                   },
                   child: Container(
                     padding:
-                        EdgeInsets.symmetric(horizontal: w30, vertical: h8),
+                        EdgeInsets.symmetric(horizontal: w40, vertical: h12),
                     decoration: BoxDecoration(
                         color: AppColor.primaryColor,
                         borderRadius:
                             BorderRadius.all(Radius.circular(AppFontSize.m15))),
-                    height: h40,
-                    width: w173,
                     child: Center(
                       child: Text(
                         AppConstants.sClose,
                         style: TextStyle(
-                            color: AppColor.white,
-                            fontSize: AppFontSize.m16,
-                            fontFamily: 'poppins',
-                            fontWeight: FontWeight.w700),
+                          color: AppColor.white,
+                          fontSize: AppFontSize.m14,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
                     ),
                   ),

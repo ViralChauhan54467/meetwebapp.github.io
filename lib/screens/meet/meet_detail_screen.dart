@@ -60,7 +60,8 @@ class _MeetDetailScreenState extends State<MeetDetailScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              32.verticalSpace,
+
+              16.verticalSpace,
 
               Padding(
                 padding: EdgeInsets.only(left: w16, top: h10),

@@ -1,10 +1,10 @@
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
+import 'package:meetwebapp/utils/utils.dart';
 
 class LoggingClient extends http.BaseClient {
   final http.Client _inner;
@@ -43,16 +43,11 @@ class LoggingClient extends http.BaseClient {
     }
 
     final response = await Response.fromStream(await send(request));
-    debugPrint(
-        '--------------------------------------------------------------');
-    if(kDebugMode){
-      log('API URL  : $url');
-      log('Request  : $body');
-      log('Response : ${response.body}');
-    }
-
-    debugPrint(
-        '--------------------------------------------------------------');
+    printLog('--------------------------------------------------------------');
+    printLog('API URL  : $url');
+    printLog('Request  : $body');
+    printLog('Response : ${response.body}');
+    printLog('--------------------------------------------------------------');
     return response;
   }
 }

@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:meetwebapp/common/size/app_font_size.dart';
 import 'package:meetwebapp/common/size/height_width.dart';
+import 'package:meetwebapp/common/widgets/custom_text.dart';
 import 'package:meetwebapp/constants/app_colors.dart';
 import 'package:meetwebapp/constants/app_constants.dart';
 import 'package:meetwebapp/model/meet_user_detail_model.dart';
+import 'package:meetwebapp/screens/meet/attendance_dialog.dart';
 
 class AttendanceScreen extends StatefulWidget {
   const AttendanceScreen({super.key});
@@ -331,15 +334,15 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
           left: const BorderSide(color: AppColor.white, width: 0),
           right: const BorderSide(color: AppColor.white, width: 0),
         ),
-        dataRowHeight: h70,
-        headingRowHeight: h40,
+        dataRowMaxHeight: h70,
+        headingRowHeight: h65,
         headingTextStyle: TextStyle(color: AppColor.white, fontSize: AppFontSize.m12),
-        headingRowColor: MaterialStateProperty.all<Color>(AppColor.primaryColor),
+        headingRowColor: WidgetStateProperty.all<Color>(AppColor.primaryColor),
         dataTextStyle: TextStyle(color: AppColor.black, fontSize: AppFontSize.m11p5, overflow: TextOverflow.ellipsis),
         showCheckboxColumn: false,
         sortColumnIndex: 0,
-        columnSpacing: w7,
-        horizontalMargin: w7,
+        columnSpacing: w16,
+        horizontalMargin: w16,
         columns: createColumns(),
         rows: createRows(meetUserDetailList),
       ),
@@ -348,61 +351,65 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
 
   List<DataColumn> createColumns() {
     return [
-      const DataColumn(
+      DataColumn(
         numeric: false,
         label: Expanded(
-          child: Text(
-            textAlign: TextAlign.start,
-            AppConstants.sSRNo,
+          child: CustomText(
+            text: AppConstants.sSRNo,
+            size: AppFontSize.m12,
+            fontWeight: FontWeight.normal,
+            align: TextAlign.center,
           ),
         ),
       ),
-      const DataColumn(
+      DataColumn(
         numeric: false,
         label: Expanded(
-          child: Text(
-            AppConstants.sName,
-            textAlign: TextAlign.start,
+          child: CustomText(
+            text: AppConstants.sName,
+            size: AppFontSize.m12,
+            fontWeight: FontWeight.normal,
+            align: TextAlign.center,
           ),
         ),
       ),
-      const DataColumn(
+      DataColumn(
         label: Expanded(
-          child: Text(
-            AppConstants.sMobile,
-            textAlign: TextAlign.start,
+          child: CustomText(
+            text: AppConstants.sMobile,
+            size: AppFontSize.m12,
+            fontWeight: FontWeight.normal,
+            align: TextAlign.center,
           ),
         ),
       ),
-      const DataColumn(
+      DataColumn(
         label: Expanded(
-          child: Text(
-            AppConstants.sCity,
-            textAlign: TextAlign.start,
+          child: CustomText(
+            text: AppConstants.sCity,
+            size: AppFontSize.m12,
+            fontWeight: FontWeight.normal,
+            align: TextAlign.center,
           ),
         ),
       ),
-      const DataColumn(
+      DataColumn(
         label: Expanded(
-          child: Text(
-            AppConstants.sGift,
-            textAlign: TextAlign.start,
+          child: CustomText(
+            text: AppConstants.sGift,
+            size: AppFontSize.m12,
+            fontWeight: FontWeight.normal,
+            align: TextAlign.center,
           ),
         ),
       ),
-      const DataColumn(
+      DataColumn(
         label: Expanded(
-          child: Text(
-            AppConstants.sAttendance,
-            textAlign: TextAlign.start,
-          ),
-        ),
-      ),
-      const DataColumn(
-        label: Expanded(
-          child: Text(
-            AppConstants.sDelete,
-            textAlign: TextAlign.start,
+          child: CustomText(
+            text: AppConstants.sAttendance,
+            size: AppFontSize.m12,
+            fontWeight: FontWeight.normal,
+            align: TextAlign.center,
           ),
         ),
       ),
@@ -413,66 +420,87 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
     return <DataRow>[
       ...List.generate(
           meetUserDetailList.length,
-              (index) => DataRow(
-              color: MaterialStateProperty.resolveWith((state) => AppColor.white),
+            (index) => DataRow(
+              color: WidgetStateProperty.resolveWith((state) => AppColor.white),
+              onSelectChanged: (isSelected) {
+                if (isSelected == true) {
+
+                  Get.dialog(
+                    const AttendanceDialog(),
+                    barrierDismissible: true,
+                  );
+                }
+              },
               cells: [
                 DataCell(
-                  Text(
-                    (index + 1).toString(),
-                    textAlign: TextAlign.start,
-                    maxLines: 5,
-                    style: TextStyle(color: AppColor.black, fontSize: AppFontSize.m10, overflow: TextOverflow.ellipsis, fontFamily: "semi_poppins"),
-                  ),
-                ),
-                DataCell(Align(
-                  alignment: Alignment.centerRight,
-                  child: Text(
-                    meetUserDetailList[index].userName.toString(),
-                    textAlign: TextAlign.end,
-                  ),
-                )),
-                DataCell(Align(
-                  alignment: Alignment.centerRight,
-                  child: Text(
-                    meetUserDetailList[index].mobile.toString(),
-                    textAlign: TextAlign.end,
-                  ),
-                )),
-                DataCell(Align(
-                  alignment: Alignment.centerRight,
-                  child: Text(
-                    meetUserDetailList[index].city.toString(),
-                    textAlign: TextAlign.end,
-                  ),
-                )),
-                DataCell(Align(
-                  alignment: Alignment.centerRight,
-                  child: Text(
-                    meetUserDetailList[index].giftName.toString(),
-                    textAlign: TextAlign.end,
-                  ),
-                )),
-                DataCell(Align(
-                  alignment: Alignment.centerRight,
-                  child: Text(
-                    meetUserDetailList[index].isAttend == '1' ? 'Yes' : 'No',
-                    textAlign: TextAlign.end,
-                  ),
-                )),
-                DataCell(
-                  onTap: () {
-
-                  },
                   Align(
                     alignment: Alignment.center,
-                    child: Icon(
-                      Icons.delete,
-                      size: AppFontSize .m26,
-                      color: AppColor.red,
+                    child: CustomText(
+                      text: (index + 1).toString(),
+                      size: AppFontSize.m12,
+                      fontWeight: FontWeight.normal,
+                      color: AppColor.black,
                     ),
                   ),
-                )
-              ]))
+                ),
+                DataCell(
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: CustomText(
+                      text: meetUserDetailList[index].userName.toString(),
+                      size: AppFontSize.m12,
+                      fontWeight: FontWeight.normal,
+                      color: AppColor.black,
+                    ),
+                  ),
+                ),
+                DataCell(
+                  Align(
+                    alignment: Alignment.center,
+                    child: CustomText(
+                      text: meetUserDetailList[index].mobile.toString(),
+                      size: AppFontSize.m12,
+                      fontWeight: FontWeight.normal,
+                      color: AppColor.black,
+                    ),
+                  ),
+                ),
+                DataCell(
+                  Align(
+                    alignment: Alignment.center,
+                    child: CustomText(
+                      text: meetUserDetailList[index].city.toString(),
+                      size: AppFontSize.m12,
+                      fontWeight: FontWeight.normal,
+                      color: AppColor.black,
+                    ),
+                  ),
+                ),
+                DataCell(
+                  Align(
+                    alignment: Alignment.center,
+                    child: CustomText(
+                      text: meetUserDetailList[index].giftName.toString(),
+                      size: AppFontSize.m12,
+                      fontWeight: FontWeight.normal,
+                      color: AppColor.black,
+                    ),
+                  ),
+                ),
+                DataCell(
+                  Align(
+                    alignment: Alignment.center,
+                    child: CustomText(
+                      text: meetUserDetailList[index].isAttend == '1' ? 'Yes' : 'No',
+                      size: AppFontSize.m12,
+                      fontWeight: FontWeight.normal,
+                      color: AppColor.black,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+      ),
     ];
   }
 
@@ -485,7 +513,7 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
           padding: EdgeInsets.all(h16),
           child: Column(
             children: [
-              32.verticalSpace,
+              16.verticalSpace,
               createUserListTable(meetUserList),
             ],
           ),

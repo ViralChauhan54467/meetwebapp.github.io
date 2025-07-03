@@ -1,8 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:meetwebapp/common/size/app_font_size.dart';
 import 'package:meetwebapp/common/size/height_width.dart';
+import 'package:meetwebapp/common/widgets/custom_drop_down.dart';
 import 'package:meetwebapp/common/widgets/custom_text.dart';
+import 'package:meetwebapp/common/widgets/drop_down/model/selected_list_item.dart';
 import 'package:meetwebapp/constants/app_colors.dart';
 import 'package:meetwebapp/constants/app_constants.dart';
 import 'dart:html' as html;
@@ -16,29 +20,19 @@ class AddUserDemoScreen extends StatefulWidget {
 
 class _AddUserDemoScreenState extends State<AddUserDemoScreen> {
 
-  // void pickImageFromCamera() {
-  //   final input = html.FileUploadInputElement();
-  //
-  //   input.accept = 'image/*';
-  //
-  //   // Manually set the "capture" attribute via JS interop
-  //   js.context.callMethod('eval', [
-  //     'document.querySelector("input[type=file]").setAttribute("capture", "environment");'
-  //   ]);
-  //
-  //   input.click();
-  //
-  //   input.onChange.listen((e) {
-  //     final file = input.files?.first;
-  //     if (file != null) {
-  //       // You now have access to the file from camera
-  //       print('Image picked: ${file.name}');
-  //     }
-  //   });
-  //
-  //   // Add it to the DOM temporarily (optional)
-  //   html.document.body?.append(input);
-  // }
+  String imageDemo = '';
+
+  ValueNotifier<String> selectedType = ValueNotifier('');
+
+  List<SelectedListItem> dealerTypeModel = [];
+
+  @override
+  void initState() {
+    initData();
+    super.initState();
+  }
+
+  void initData() async {}
 
   void pickImageFromCamera() {
     final uploadInput = html.FileUploadInputElement();
@@ -57,6 +51,9 @@ class _AddUserDemoScreenState extends State<AddUserDemoScreen> {
         reader.onLoadEnd.listen((event) {
           print("Image loaded: ${reader.result}");
           // Use reader.result for displaying or uploading
+          setState(() {
+            imageDemo = reader.result.toString().split(',')[1];
+          });
         });
       }
     });
@@ -71,6 +68,22 @@ class _AddUserDemoScreenState extends State<AddUserDemoScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+
+            32.verticalSpace,
+
+            CustomDropDown(
+              isRequired: true,
+              dropDownHeader: 'User',
+              dropDownData: dealerTypeModel,
+              selectedValue: selectedType,
+              onItemSelected: (selectedList) {
+                List<String> list = [];
+                for (var item in selectedList) {
+                  list.add(item.name ?? '');
+                  selectedType.value = item.name ?? '';
+                }
+              },
+            ),
 
             32.verticalSpace,
 
@@ -103,6 +116,19 @@ class _AddUserDemoScreenState extends State<AddUserDemoScreen> {
                 ),
               ),
             ),
+
+            32.verticalSpace,
+
+            Visibility(
+              visible: imageDemo.isNotEmpty,
+              child: Center(
+                child: SizedBox(
+                  height: 256,
+                  width: 256,
+                  child: Image.memory(base64.decode(imageDemo)),
+                ),
+              ),
+            )
           ],
         ),
       ),

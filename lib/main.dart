@@ -3,10 +3,20 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:meetwebapp/constants/app_constants.dart';
 import 'package:meetwebapp/screens/meet/meet_list_screen.dart';
+import 'package:meetwebapp/screens/splash/splash_screen.dart';
 
 import 'constants/app_colors.dart';
 
+late final String? mobile;
+late final String? token;
+
 void main() {
+
+  final uri = Uri.base;
+
+  mobile = uri.queryParameters['mobile'];
+  token = uri.queryParameters['token'];
+
   runApp(const MyApp());
 }
 
@@ -21,6 +31,8 @@ class MyApp extends StatelessWidget {
       return OrientationBuilder(builder: (context, orientation) {
         return ScreenUtilInit(
           designSize: const Size(360, 690),
+          minTextAdapt: true,
+          ensureScreenSize: true,
           builder: (context, child) {
             return GetMaterialApp(
               title: AppConstants.sMeetTitle,
@@ -35,7 +47,7 @@ class MyApp extends StatelessWidget {
                 useMaterial3: true,
               ),
               debugShowCheckedModeBanner: false,
-              home: const MeetListScreen(),
+              home: const MeetListScreen(), //const SplashScreen(),
             );
           },
         );

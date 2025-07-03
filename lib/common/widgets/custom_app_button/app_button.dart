@@ -49,7 +49,6 @@ class CustomAppButton extends StatelessWidget {
                 style: TextStyle(
                   color: loading ? AppColor.primaryColor : AppColor.white,
                   fontSize: AppFontSize.m16,
-                  fontFamily: 'poppins',
                   fontWeight: FontWeight.w700,
                 ),
               ),

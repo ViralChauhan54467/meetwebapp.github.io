@@ -38,7 +38,13 @@ class CustomDropDown extends StatelessWidget {
                   padding: EdgeInsets.all(w8),
                   child: Text(
                     "Select $dropDownHeader",
-                    style: TextStyle(color: AppColor.black, fontSize: AppFontSize.m14),
+                    maxLines: 2,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: AppColor.black,
+                      fontSize: AppFontSize.m14,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
                 ),
                 submitButtonChild: Text(
@@ -46,6 +52,7 @@ class CustomDropDown extends StatelessWidget {
                   style: TextStyle(
                     fontSize: AppFontSize.m16,
                     fontWeight: FontWeight.bold,
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
                 data: List<SelectedListItem>.from(dropDownData?.map((x) => SelectedListItem(name: x.name ?? "", isSelected: false, id: x.id)) ?? []),
@@ -74,13 +81,17 @@ class CustomDropDown extends StatelessWidget {
                     children: <InlineSpan>[
                       TextSpan(
                         text: (isRequired == true) ? '*' : '',
-                        style: const TextStyle(color: AppColor.red),
+                        style: const TextStyle(
+                          color: AppColor.red,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
                     ],
                     style: TextStyle(
                       color: AppColor.primaryColor,
                       fontSize: AppFontSize.m12,
                       fontWeight: FontWeight.w400,
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
                 ) : CustomText(

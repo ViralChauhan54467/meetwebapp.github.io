@@ -335,15 +335,15 @@ class _AddUserScreenState extends State<AddUserScreen> {
           left: const BorderSide(color: AppColor.white, width: 0),
           right: const BorderSide(color: AppColor.white, width: 0),
         ),
-        dataRowHeight: h70,
-        headingRowHeight: h40,
+        dataRowMaxHeight: h70,
+        headingRowHeight: h65,
         headingTextStyle: TextStyle(color: AppColor.white, fontSize: AppFontSize.m12),
-        headingRowColor: MaterialStateProperty.all<Color>(AppColor.primaryColor),
+        headingRowColor: WidgetStateProperty.all<Color>(AppColor.primaryColor),
         dataTextStyle: TextStyle(color: AppColor.black, fontSize: AppFontSize.m11p5, overflow: TextOverflow.ellipsis),
         showCheckboxColumn: false,
         sortColumnIndex: 0,
-        columnSpacing: w7,
-        horizontalMargin: w7,
+        columnSpacing: w16,
+        horizontalMargin: w16,
         columns: createColumns(),
         rows: createRows(meetUserDetailList),
       ),
@@ -352,61 +352,55 @@ class _AddUserScreenState extends State<AddUserScreen> {
 
   List<DataColumn> createColumns() {
     return [
-      const DataColumn(
+      DataColumn(
         numeric: false,
         label: Expanded(
-          child: Text(
-            textAlign: TextAlign.start,
-            AppConstants.sSRNo,
+          child: CustomText(
+            text: AppConstants.sSRNo,
+            size: AppFontSize.m12,
+            fontWeight: FontWeight.normal,
+            align: TextAlign.center,
           ),
         ),
       ),
-      const DataColumn(
+      DataColumn(
         numeric: false,
         label: Expanded(
-          child: Text(
-            AppConstants.sName,
-            textAlign: TextAlign.start,
+          child: CustomText(
+            text: AppConstants.sName,
+            size: AppFontSize.m12,
+            fontWeight: FontWeight.normal,
+            align: TextAlign.center,
           ),
         ),
       ),
-      const DataColumn(
+      DataColumn(
         label: Expanded(
-          child: Text(
-            AppConstants.sMobile,
-            textAlign: TextAlign.start,
+          child: CustomText(
+            text: AppConstants.sMobile,
+            size: AppFontSize.m12,
+            fontWeight: FontWeight.normal,
+            align: TextAlign.center,
           ),
         ),
       ),
-      const DataColumn(
+      DataColumn(
         label: Expanded(
-          child: Text(
-            AppConstants.sCity,
-            textAlign: TextAlign.start,
+          child: CustomText(
+            text: AppConstants.sCity,
+            size: AppFontSize.m12,
+            fontWeight: FontWeight.normal,
+            align: TextAlign.center,
           ),
         ),
       ),
-      const DataColumn(
+      DataColumn(
         label: Expanded(
-          child: Text(
-            AppConstants.sGift,
-            textAlign: TextAlign.start,
-          ),
-        ),
-      ),
-      const DataColumn(
-        label: Expanded(
-          child: Text(
-            AppConstants.sAttendance,
-            textAlign: TextAlign.start,
-          ),
-        ),
-      ),
-      const DataColumn(
-        label: Expanded(
-          child: Text(
-            AppConstants.sDelete,
-            textAlign: TextAlign.start,
+          child: CustomText(
+            text: AppConstants.sDelete,
+            size: AppFontSize.m12,
+            fontWeight: FontWeight.normal,
+            align: TextAlign.center,
           ),
         ),
       ),
@@ -418,51 +412,52 @@ class _AddUserScreenState extends State<AddUserScreen> {
       ...List.generate(
           meetUserDetailList.length,
               (index) => DataRow(
-              color: MaterialStateProperty.resolveWith((state) => AppColor.white),
+              color: WidgetStateProperty.resolveWith((state) => AppColor.white),
               cells: [
                 DataCell(
-                  Text(
-                    (index + 1).toString(),
-                    textAlign: TextAlign.start,
-                    maxLines: 5,
-                    style: TextStyle(color: AppColor.black, fontSize: AppFontSize.m10, overflow: TextOverflow.ellipsis, fontFamily: "semi_poppins"),
+                  Align(
+                    alignment: Alignment.center,
+                    child: CustomText(
+                      text: (index + 1).toString(),
+                      size: AppFontSize.m12,
+                      fontWeight: FontWeight.normal,
+                      color: AppColor.black,
+                    ),
                   ),
                 ),
-                DataCell(Align(
-                  alignment: Alignment.centerRight,
-                  child: Text(
-                    meetUserDetailList[index].userName.toString(),
-                    textAlign: TextAlign.end,
+                DataCell(
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: CustomText(
+                      text: meetUserDetailList[index].userName.toString(),
+                      size: AppFontSize.m12,
+                      fontWeight: FontWeight.normal,
+                      color: AppColor.black,
+                    ),
                   ),
-                )),
-                DataCell(Align(
-                  alignment: Alignment.centerRight,
-                  child: Text(
-                    meetUserDetailList[index].mobile.toString(),
-                    textAlign: TextAlign.end,
+                ),
+                DataCell(
+                  Align(
+                    alignment: Alignment.center,
+                    child: CustomText(
+                      text: meetUserDetailList[index].mobile.toString(),
+                      size: AppFontSize.m12,
+                      fontWeight: FontWeight.normal,
+                      color: AppColor.black,
+                    ),
                   ),
-                )),
-                DataCell(Align(
-                  alignment: Alignment.centerRight,
-                  child: Text(
-                    meetUserDetailList[index].city.toString(),
-                    textAlign: TextAlign.end,
+                ),
+                DataCell(
+                  Align(
+                    alignment: Alignment.center,
+                    child: CustomText(
+                      text: meetUserDetailList[index].city.toString(),
+                      size: AppFontSize.m12,
+                      fontWeight: FontWeight.normal,
+                      color: AppColor.black,
+                    ),
                   ),
-                )),
-                DataCell(Align(
-                  alignment: Alignment.centerRight,
-                  child: Text(
-                    meetUserDetailList[index].giftName.toString(),
-                    textAlign: TextAlign.end,
-                  ),
-                )),
-                DataCell(Align(
-                  alignment: Alignment.centerRight,
-                  child: Text(
-                    meetUserDetailList[index].isAttend == '1' ? 'Yes' : 'No',
-                    textAlign: TextAlign.end,
-                  ),
-                )),
+                ),
                 DataCell(
                   onTap: () {
 
@@ -471,7 +466,7 @@ class _AddUserScreenState extends State<AddUserScreen> {
                     alignment: Alignment.center,
                     child: Icon(
                       Icons.delete,
-                      size: AppFontSize.m26,
+                      size: 24.r,
                       color: AppColor.red,
                     ),
                   ),
@@ -490,7 +485,7 @@ class _AddUserScreenState extends State<AddUserScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
 
-            32.verticalSpace,
+            16.verticalSpace,
 
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -551,7 +546,6 @@ class _AddUserScreenState extends State<AddUserScreen> {
                 child: createUserListTable(meetUserList),
               ),
             ),
-
           ],
         ),
       ),

@@ -42,7 +42,6 @@ dependencies:
   flutter_staggered_animations: ^1.1.1
   http: ^1.4.0
   connectivity_plus: ^6.1.4
-  image_picker: ^1.0.0
 
 dev_dependencies:
   flutter_test:

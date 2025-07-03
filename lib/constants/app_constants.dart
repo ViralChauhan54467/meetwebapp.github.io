@@ -3,6 +3,7 @@ class AppConstants {
   //common
   static const String sRefresh = 'Refresh';
   static const String sClose = 'Close';
+  static const String sSubmit = 'Submit';
   static const String sMaintenanceMessage = 'MaintenanceMessage';
 
   static const String sMeetTitle = 'Meet';
